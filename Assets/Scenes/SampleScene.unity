@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 0d0e0c8f0cc076b419cfd8a79de379ac, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -204,6 +204,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58f33b647fc4607429b43342686ad519, type: 3}
+--- !u!1 &122065177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 9f0519225c65144c0b637b15dda857c8, type: 3}
+  m_PrefabInstance: {fileID: 861029750}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &122065179
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122065177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3, y: 1.4, z: 1.2}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1001 &150059477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,6 +372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PW_cupboard_narrow
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: a54fa2613a81641dca85abbac2f33681, type: 3}
+      propertyPath: m_TagString
+      value: counter
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a54fa2613a81641dca85abbac2f33681, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -467,6 +489,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 1b072438ce5b846ef8d514b9a45369f8, type: 3}
       propertyPath: m_Name
       value: PW_cupboard02
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 1b072438ce5b846ef8d514b9a45369f8, type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 1b072438ce5b846ef8d514b9a45369f8, type: 3}
       propertyPath: m_RootOrder
@@ -812,6 +838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PW_stove
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9f0519225c65144c0b637b15dda857c8, type: 3}
+      propertyPath: m_TagString
+      value: counter
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9f0519225c65144c0b637b15dda857c8, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1135,6 +1165,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
+--- !u!1 &1124590645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: a54fa2613a81641dca85abbac2f33681, type: 3}
+  m_PrefabInstance: {fileID: 260980301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1124590647
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124590645}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1.4, z: 1.2}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1001 &1151424051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1775,6 +1823,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
+--- !u!1 &1744193219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: 1b072438ce5b846ef8d514b9a45369f8, type: 3}
+  m_PrefabInstance: {fileID: 452147851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1744193222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744193219}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 1.5, z: 1.2}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1001 &1836031538
 PrefabInstance:
   m_ObjectHideFlags: 0

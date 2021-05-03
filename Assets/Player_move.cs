@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_move : MonoBehaviour
 {
@@ -19,5 +20,13 @@ public class Player_move : MonoBehaviour
         var keyZ = Input.GetAxis("Vertical");
 
         player_rigid.velocity = transform.forward * (keyZ * movementspeed) + transform.right * (keyX * movementspeed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "counter")
+        {
+            SceneManager.LoadScene("MiniGame_01");
+        }
     }
 }

@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fluid
+  - TalkingCharacter
+  - Up
+  - Down
+  - Left
+  - Right
+  - Ball
+  - counter
   layers:
   - Default
   - TransparentFX
