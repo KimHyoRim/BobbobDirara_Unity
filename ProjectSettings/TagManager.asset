@@ -12,6 +12,7 @@ TagManager:
   - Right
   - Ball
   - counter
+  - object
   layers:
   - Default
   - TransparentFX
