@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,13 +16,11 @@ public class Player : MonoBehaviour
     private float lookSensitivity;
 
     [SerializeField]
-    private float cameraRotationLimit; //최대 카메라 회전각 75정도면 적당
-
-    // 캐릭터 회전 변수
+    private float cameraRotationLimit;        
+   
     private float currentCharactorRotationX;
     private float currentCharactorRotationY;
-
-    // 카메라 회전 변수
+ 
     private float currentCameraRotationX;
     private float currentCameraRotationY;
 
@@ -54,7 +53,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         FreezeRotation();
-        StopToWall();
+        //StopToWall();
     }
 
     void FreezeRotation()
@@ -65,39 +64,57 @@ public class Player : MonoBehaviour
     void StopToWall()
     {
         Debug.DrawRay(transform.position, transform.forward * 1, Color.green);
-        isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Wall"));
+        isBorder = Physics.Raycast(transform.position, transform.forward, 0.3f, LayerMask.GetMask("Wall"));
     }
 
     void Move()
     {
-        if (!isBorder)
+
+        if (Input.GetKey(KeyCode.W))
         {
-            if (Input.GetKey(KeyCode.W))
+
+            isBorder = Physics.Raycast(transform.position, transform.forward, 0.3f, LayerMask.GetMask("Wall"));
+            if (!isBorder)
             {
                 moveVec = Vector3.forward * speed * Time.deltaTime;
+
                 this.transform.Translate(moveVec);
             }
-            if (Input.GetKey(KeyCode.S))
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            isBorder = Physics.Raycast(transform.position, transform.forward * -1, 0.3f, LayerMask.GetMask("Wall"));
+            if (!isBorder)
             {
                 moveVec = Vector3.back * speed * Time.deltaTime;
+
                 this.transform.Translate(moveVec);
             }
-            if (Input.GetKey(KeyCode.A))
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            isBorder = Physics.Raycast(transform.position, transform.right * -1, 0.3f, LayerMask.GetMask("Wall"));
+            if (!isBorder)
             {
                 moveVec = Vector3.left * speed * Time.deltaTime;
                 this.transform.Translate(moveVec);
             }
-            if (Input.GetKey(KeyCode.D))
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            isBorder = Physics.Raycast(transform.position, transform.right, 0.3f, LayerMask.GetMask("Wall"));
+            if (!isBorder)
             {
                 moveVec = Vector3.right * speed * Time.deltaTime;
                 this.transform.Translate(moveVec);
             }
-            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) ||
-                Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-                moveVec = Vector3.zero;
-
-            anim.SetBool("isWalk", moveVec != Vector3.zero);
         }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) ||
+            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+            moveVec = Vector3.zero;
+
+        anim.SetBool("isWalk", moveVec != Vector3.zero);
+
     }
 
 
@@ -110,13 +127,17 @@ public class Player : MonoBehaviour
         theCamera.transform.localRotation *= Quaternion.Euler(-char_X_Ro, 0, 0);
     }
 
-
-    // 방향키 미니 게임 씬 전환
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "counter")
         {
             SceneManager.LoadScene("MiniGame_01");
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Wall")
+            this.transform.Translate(-moveVec * 2);
     }
 }
