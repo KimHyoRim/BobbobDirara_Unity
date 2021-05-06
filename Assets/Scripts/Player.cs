@@ -119,5 +119,4 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("MiniGame_01");
         }
     }
-
 }
