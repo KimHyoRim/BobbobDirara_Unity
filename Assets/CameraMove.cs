@@ -52,7 +52,7 @@ public class CameraMove : MonoBehaviour
         float xRotation = Input.GetAxisRaw("Mouse Y");
         float cameraRaotationX = xRotation * lookSensitivity;
         currentCameraRotationX += cameraRaotationX;
-        
+
         //Mathf.Clamp : 최대 / 최소값 사이의 float 값이 값이 범위 외의 값이되지 않도록한다
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
 

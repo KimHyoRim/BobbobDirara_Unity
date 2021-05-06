@@ -28,5 +28,10 @@ public class Player_move : MonoBehaviour
         {
             SceneManager.LoadScene("MiniGame_01");
         }
+
+        if(other.tag == "object")
+        {
+            print("Ãæµ¹");
+        }
     }
 }
