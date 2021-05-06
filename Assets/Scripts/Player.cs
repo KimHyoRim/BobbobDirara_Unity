@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
-    float hAxis;
-    float vAxis;
+    public float speed = 7.0f;
 
     Vector3 moveVec;
 
@@ -49,55 +47,55 @@ public class Player : MonoBehaviour
     {
         Move();
         CharactorRotation();
-        CameraRotation();
+    }
+
+    void FixedUpdate()
+    {
+        FreezeRotation();
+    }
+
+    void FreezeRotation()
+    {
+        myRigid.angularVelocity = Vector3.zero;
     }
 
     void Move()
     {
-        hAxis = Input.GetAxisRaw("Horizontal");
-        vAxis = Input.GetAxisRaw("Vertical");
-
-        moveVec = new Vector3(hAxis, 0, vAxis).normalized;
-
-        transform.position += moveVec * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.W))
+        {
+            moveVec = Vector3.forward * speed * Time.deltaTime;
+            this.transform.Translate(moveVec);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            moveVec = Vector3.back * speed * Time.deltaTime;
+            this.transform.Translate(moveVec);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveVec = Vector3.left * speed * Time.deltaTime;
+            this.transform.Translate(moveVec);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveVec = Vector3.right * speed * Time.deltaTime;
+            this.transform.Translate(moveVec);
+        }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) ||
+            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+            moveVec = Vector3.zero;
 
         anim.SetBool("isWalk", moveVec != Vector3.zero);
-        //transform.LookAt(transform.position + moveVec);
     }
 
-    void CameraRotation()
-    {
-        float yRotation = Input.GetAxisRaw("Mouse X");
-        //float cameraRaotationY = yRotation * lookSensitivity;
-
-        float xRotation = Input.GetAxisRaw("Mouse Y");
-        //float cameraRaotationX = xRotation * lookSensitivity;
-
-        theCamera.transform.eulerAngles = transform.eulerAngles + new Vector3(x: 0, y: yRotation, z: 0);
-        //currentCameraRotationX -= cameraRaotationX;
-        //currentCameraRotationY -= cameraRaotationY;
-
-        //currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
-
-        //theCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, -currentCameraRotationY, 0f);
-    }
 
     void CharactorRotation()
     {
         float char_Y_Ro = Input.GetAxisRaw("Mouse X");
-        //float CharactoRaotationY = char_Y_Ro * lookSensitivity;
-
         float char_X_Ro = Input.GetAxisRaw("Mouse Y");
 
-        transform.eulerAngles = transform.eulerAngles + new Vector3(x: 0, y: char_Y_Ro, z: 0);
-        //float CharactoRaotationX = char_X_Ro * lookSensitivity;
-
-        //currentCharactorRotationX -= CharactoRaotationX;
-        //currentCharactorRotationY -= CharactoRaotationY;
-
-        //currentCharactorRotationX = Mathf.Clamp(currentCharactorRotationX, -cameraRotationLimit, cameraRotationLimit);
-
-        //transform.localEulerAngles = new Vector3(0f, -currentCharactorRotationY, 0f);
+        this.transform.localRotation *= Quaternion.Euler(0, char_Y_Ro, 0);
+        theCamera.transform.localRotation *= Quaternion.Euler(-char_X_Ro, 0, 0);
     }
 
 
