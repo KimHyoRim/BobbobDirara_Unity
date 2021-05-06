@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -97,5 +98,15 @@ public class Player : MonoBehaviour
         //currentCharactorRotationX = Mathf.Clamp(currentCharactorRotationX, -cameraRotationLimit, cameraRotationLimit);
 
         //transform.localEulerAngles = new Vector3(0f, -currentCharactorRotationY, 0f);
+    }
+
+
+    // 방향키 미니 게임 씬 전환
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "counter")
+        {
+            SceneManager.LoadScene("MiniGame_01");
+        }
     }
 }
