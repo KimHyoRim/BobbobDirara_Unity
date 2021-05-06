@@ -13,11 +13,12 @@ TagManager:
   - Ball
   - counter
   - object
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - 

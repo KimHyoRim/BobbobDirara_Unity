@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private Camera theCamera;
     private Rigidbody myRigid;
 
+    bool isBorder;
+
 
     void Awake()
     {
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         FreezeRotation();
+        StopToWall();
     }
 
     void FreezeRotation()
@@ -59,33 +62,42 @@ public class Player : MonoBehaviour
         myRigid.angularVelocity = Vector3.zero;
     }
 
+    void StopToWall()
+    {
+        Debug.DrawRay(transform.position, transform.forward * 1, Color.green);
+        isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Wall"));
+    }
+
     void Move()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (!isBorder)
         {
-            moveVec = Vector3.forward * speed * Time.deltaTime;
-            this.transform.Translate(moveVec);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveVec = Vector3.back * speed * Time.deltaTime;
-            this.transform.Translate(moveVec);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveVec = Vector3.left * speed * Time.deltaTime;
-            this.transform.Translate(moveVec);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveVec = Vector3.right * speed * Time.deltaTime;
-            this.transform.Translate(moveVec);
-        }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) ||
-            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-            moveVec = Vector3.zero;
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveVec = Vector3.forward * speed * Time.deltaTime;
+                this.transform.Translate(moveVec);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveVec = Vector3.back * speed * Time.deltaTime;
+                this.transform.Translate(moveVec);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveVec = Vector3.left * speed * Time.deltaTime;
+                this.transform.Translate(moveVec);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveVec = Vector3.right * speed * Time.deltaTime;
+                this.transform.Translate(moveVec);
+            }
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) ||
+                Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                moveVec = Vector3.zero;
 
-        anim.SetBool("isWalk", moveVec != Vector3.zero);
+            anim.SetBool("isWalk", moveVec != Vector3.zero);
+        }
     }
 
 
@@ -107,4 +119,5 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("MiniGame_01");
         }
     }
+
 }
