@@ -14,6 +14,7 @@ TagManager:
   - counter
   - object
   - Wall
+  - BurgerShop
   layers:
   - Default
   - TransparentFX

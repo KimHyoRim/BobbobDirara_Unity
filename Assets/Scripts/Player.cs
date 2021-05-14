@@ -133,6 +133,11 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("MiniGame_01");
         }
+
+        if (other.tag == "BurgerShop")
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
     }
 
     private void OnCollisionEnter(Collision other)
