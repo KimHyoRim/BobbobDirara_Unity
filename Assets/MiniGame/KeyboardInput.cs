@@ -57,7 +57,7 @@ public class KeyboardInput : MonoBehaviour
 
         if (i == ballList.Length)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("MainStageScene");
         }
     }
 }
