@@ -6,18 +6,34 @@ using UnityEngine.SceneManagement;
 public class KeyboardInput : MonoBehaviour
 {
     public GameObject[] ballList = new GameObject[8];
+    public GameObject[] BallType = new GameObject[4];
     private int i = 0;
-    AudioSource audio;
+    private AudioSource audio;
+
+    public static bool playerVisited = false;
 
     public void Start()
     {
         i = 0;
         Debug.Log(ballList.Length);
+        InitBall();
+        audio = GetComponent<AudioSource>();
     }
 
     void Awake()
     {
-        audio = GetComponent<AudioSource>();
+       
+    }
+
+    void InitBall()
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            int randomObj = Random.Range(0, 3);
+            ballList[j] = (GameObject)Instantiate(BallType[randomObj], new Vector3(-7.0f + 1.2f * j, 6.819498f, -11.89f),
+                    Quaternion.identity);
+            ballList[j].transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
     }
 
     public void Update()
@@ -26,7 +42,8 @@ public class KeyboardInput : MonoBehaviour
         {
             ballList[i].SetActive(false);
             i += 1;
-            audio.Play();
+            GameObject.Find("Up").GetComponent<AudioSource>().Play();
+            //audio.Play();
             Debug.Log(i);
             Debug.Log("Up");
         }
@@ -34,7 +51,8 @@ public class KeyboardInput : MonoBehaviour
         {
             Debug.Log("Down");
             ballList[i].SetActive(false);
-            audio.Play();
+            GameObject.Find("Down").GetComponent<AudioSource>().Play();
+            //audio.Play();
             i += 1;
             Debug.Log(i);
         }
@@ -42,7 +60,8 @@ public class KeyboardInput : MonoBehaviour
         {
             Debug.Log("Left");
             ballList[i].SetActive(false);
-            audio.Play();
+            GameObject.Find("Left").GetComponent<AudioSource>().Play(); 
+            //audio.Play();
             i += 1;
             Debug.Log(i);
         }
@@ -50,13 +69,15 @@ public class KeyboardInput : MonoBehaviour
         {
             Debug.Log("Right");
             ballList[i].SetActive(false);
-            audio.Play();
+            GameObject.Find("Right").GetComponent<AudioSource>().Play();
+            //audio.Play();
             i += 1;
             Debug.Log(i);
         }
 
         if (i == ballList.Length)
         {
+            playerVisited = true;
             SceneManager.LoadScene("MainStageScene");
         }
     }

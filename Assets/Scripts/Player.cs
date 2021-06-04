@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
 
         myRigid = GetComponent<Rigidbody>();
+
+        if (KeyboardInput.playerVisited == true)
+            this.transform.position = new Vector3(-323.9f, 69.941f, 85.734f);
+        KeyboardInput.playerVisited = false;
     }
 
     void Update()
@@ -116,7 +120,6 @@ public class Player : MonoBehaviour
         anim.SetBool("isWalk", moveVec != Vector3.zero);
 
     }
-
 
     void CharactorRotation()
     {
