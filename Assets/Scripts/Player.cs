@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,11 +29,14 @@ public class Player : MonoBehaviour
 
     bool isBorder;
 
+    public GameObject food;
+    public GameObject[] foodType = new GameObject[4];
 
     void Awake()
-    {
-        anim = GetComponent<Animator>();
+    { 
+
     }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -45,21 +47,42 @@ public class Player : MonoBehaviour
         if (KeyboardInput.playerVisited == true)
         {
             this.transform.position = new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 69.941f, 85.734f);
+            makeFood();
         }
  
         KeyboardInput.playerVisited = false;
+
+        anim = GetComponent<Animator>();
+    }
+
+    void makeFood()
+    {
+        foodType[0] = GameObject.Find("Pizza_Mesh");
+        foodType[1] = GameObject.Find("french frice");
+        foodType[2] = GameObject.Find("Sushi");
+        foodType[3] = GameObject.Find("Chicken");
+
+        food = (GameObject)Instantiate(foodType[KeyboardInput.counteridx], new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 71.416f, 87.9f),
+                    Quaternion.identity);
+
+        if (KeyboardInput.counteridx == 1)
+        {
+            Transform tr = food.GetComponent<Transform>();
+            tr.Rotate(new Vector3(0f, 180f, 0f));
+        }
+
     }
 
     void Update()
     {
         Move();
         CharactorRotation();
+        PickupFood();
     }
 
     void FixedUpdate()
     {
         FreezeRotation();
-        //StopToWall();
     }
 
     void FreezeRotation()
@@ -120,7 +143,6 @@ public class Player : MonoBehaviour
             moveVec = Vector3.zero;
 
         anim.SetBool("isWalk", moveVec != Vector3.zero);
-
     }
 
     void CharactorRotation()
@@ -132,18 +154,32 @@ public class Player : MonoBehaviour
         theCamera.transform.localRotation *= Quaternion.Euler(-char_X_Ro, 0, 0);
     }
 
+    void PickupFood()
+    {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            GameObject foodPoint = GameObject.Find("foodpoint");
+            Transform tr = food.GetComponent<Transform>();
+            tr.SetParent(foodPoint.transform);
+            tr.localPosition = Vector3.zero;
+            tr.rotation = new Quaternion(0, 0, 0, 0);
+
+            anim.SetBool("isPickup", true);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "counter")
         {
             if (other.name == "PW_stove")
-                KeyboardInput.counteridx = 0.0f;
+                KeyboardInput.counteridx = 0;
             else if (other.name == "PW_stove (1)")
-                KeyboardInput.counteridx = 1.0f;
+                KeyboardInput.counteridx = 1;
             else if (other.name == "PW_stove (2)")
-                KeyboardInput.counteridx = 2.0f;
+                KeyboardInput.counteridx = 2;
             else if (other.name == "PW_stove (3)")
-                KeyboardInput.counteridx = 3.0f;
+                KeyboardInput.counteridx = 3;
            
             SceneManager.LoadScene("MiniGame_01");
         }

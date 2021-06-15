@@ -5,19 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class KeyboardInput : MonoBehaviour
 {
-    //public GameObject[] ballList = new GameObject[8];
-    public GameObject[] ballList;
+    public GameObject[] ballList = new GameObject[8];
     public GameObject[] ballType = new GameObject[4];
     private int i = 0;
     private AudioSource myaudio;
 
     public static bool playerVisited = false;
-    public static float counteridx = 0.0f;
+    public static int counteridx = 0;
 
     public void Start()
     {
-        ballList = new GameObject[8];
-
         i = 0;
         InitBall();
         myaudio = GetComponent<AudioSource>();
