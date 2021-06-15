@@ -28,12 +28,18 @@ public class Player : MonoBehaviour
     private Rigidbody myRigid;
 
     bool isBorder;
+    bool isRoadScene = false;
 
-    public GameObject food;
+    public int foodnum = 0;
+    public List<GameObject> myFoodList = new List<GameObject>();
+    public  GameObject food;
     public GameObject[] foodType = new GameObject[4];
 
     public GameObject[] arrayChild = new GameObject[6];
     public GameObject collidedTable;
+
+    public static GameObject mainCamera;
+    public static GameObject miniCamera;
 
     void Awake()
     {
@@ -47,35 +53,41 @@ public class Player : MonoBehaviour
 
         myRigid = GetComponent<Rigidbody>();
 
-        if (KeyboardInput.playerVisited == true)
-        {
-            this.transform.position = new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 69.941f, 86.734f);
-            makeFood();
-        }
-
         KeyboardInput.playerVisited = false;
+
+        mainCamera = GameObject.FindWithTag("MainCamera");
+        miniCamera = GameObject.FindWithTag("MiniCamera");
+        miniCamera.SetActive(false);
     }
 
     void makeFood()
-    {
-        foodType[0] = GameObject.Find("Pizza_Mesh");
-        foodType[1] = GameObject.Find("french frice");
-        foodType[2] = GameObject.Find("Sushi");
-        foodType[3] = GameObject.Find("Chicken");
+    {   
+            foodType[0] = GameObject.Find("Pizza_Mesh");
+            foodType[1] = GameObject.Find("french frice");
+            foodType[2] = GameObject.Find("Sushi");
+            foodType[3] = GameObject.Find("Chicken");
 
-        food = (GameObject)Instantiate(foodType[KeyboardInput.counteridx], new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 71.416f, 87.9f),
-                    Quaternion.identity);
+            food = (GameObject)Instantiate(foodType[KeyboardInput.counteridx], new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 71.416f, 87.9f),
+                        Quaternion.identity);
+            foodnum += 1;
+            myFoodList.Add(food);
 
-        if (KeyboardInput.counteridx == 1)
-        {
-            Transform tr = food.GetComponent<Transform>();
-            tr.Rotate(new Vector3(0f, 180f, 0f));
-        }
-
+            if (KeyboardInput.counteridx == 1)
+            {
+                Transform tr = myFoodList[foodnum - 1].GetComponent<Transform>();
+                tr.Rotate(new Vector3(0f, 180f, 0f));
+            }
+            KeyboardInput.isCorrected = false;
     }
 
     void Update()
     {
+        if (KeyboardInput.isCorrected == true)
+        {
+            makeFood();
+            KeyboardInput.playerVisited = false;
+            KeyboardInput.isCorrected = false;
+        }
         Move();
         CharactorRotation();
         PickupFood();
@@ -160,7 +172,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.P))
         {
             GameObject foodPoint = GameObject.Find("foodpoint");
-            Transform tr = food.GetComponent<Transform>();
+            Transform tr = myFoodList[foodnum - 1].GetComponent<Transform>();
             tr.SetParent(foodPoint.transform);
             tr.localPosition = Vector3.zero;
             tr.rotation = new Quaternion(0, 0, 0, 0);
@@ -170,8 +182,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.X) && collidedTable != null)
         {
-            Debug.Log("음식 내려놓기 ");
-            Transform tr = food.GetComponent<Transform>();
+            Transform tr = myFoodList[foodnum - 1].GetComponent<Transform>();
             tr.SetParent(collidedTable.transform);
             //tr.localPosition = new Vector3(2.8f, 0.9f, -0.15f);
             tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
@@ -184,7 +195,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "counter")
+        if (other.tag == "counter" && isRoadScene == false)
         {
             if (other.name == "PW_stove")
                 KeyboardInput.counteridx = 0;
@@ -194,8 +205,10 @@ public class Player : MonoBehaviour
                 KeyboardInput.counteridx = 2;
             else if (other.name == "PW_stove (3)")
                 KeyboardInput.counteridx = 3;
-           
-            SceneManager.LoadScene("MiniGame_01");
+
+            mainCamera.SetActive(false);
+            miniCamera.SetActive(true);
+            //SceneManager.LoadScene("MiniGame_01", LoadSceneMode.Additive);
         }
 
         if (other.tag == "BurgerShop")
@@ -213,12 +226,10 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Table")
         {
-            Debug.Log("충돌 발생");
             for (int i = 0; i < arrayChild.Length; i++)
             {
                 if (other.gameObject == arrayChild[i])
                 {
-                    Debug.Log(i);
                     collidedTable = arrayChild[i];
                 }
             }

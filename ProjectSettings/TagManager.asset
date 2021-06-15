@@ -17,6 +17,7 @@ TagManager:
   - BurgerShop
   - guest
   - Table
+  - MiniCamera
   layers:
   - Default
   - TransparentFX

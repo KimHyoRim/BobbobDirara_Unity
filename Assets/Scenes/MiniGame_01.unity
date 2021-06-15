@@ -531,7 +531,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  BallType:
+  ballType:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -978,11 +978,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  BallType:
-  - {fileID: 597375912}
-  - {fileID: 889004477}
-  - {fileID: 2095145491}
-  - {fileID: 1821748420}
+  ballType:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1376891264
 Transform:
   m_ObjectHideFlags: 0
