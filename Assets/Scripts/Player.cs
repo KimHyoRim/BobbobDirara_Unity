@@ -32,9 +32,12 @@ public class Player : MonoBehaviour
     public GameObject food;
     public GameObject[] foodType = new GameObject[4];
 
-    void Awake()
-    { 
+    public GameObject[] arrayChild = new GameObject[6];
+    public GameObject collidedTable;
 
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -46,13 +49,11 @@ public class Player : MonoBehaviour
 
         if (KeyboardInput.playerVisited == true)
         {
-            this.transform.position = new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 69.941f, 85.734f);
+            this.transform.position = new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 69.941f, 86.734f);
             makeFood();
         }
- 
-        KeyboardInput.playerVisited = false;
 
-        anim = GetComponent<Animator>();
+        KeyboardInput.playerVisited = false;
     }
 
     void makeFood()
@@ -166,6 +167,19 @@ public class Player : MonoBehaviour
 
             anim.SetBool("isPickup", true);
         }
+
+        if (Input.GetKeyUp(KeyCode.X) && collidedTable != null)
+        {
+            Debug.Log("음식 내려놓기 ");
+            Transform tr = food.GetComponent<Transform>();
+            tr.SetParent(collidedTable.transform);
+            //tr.localPosition = new Vector3(2.8f, 0.9f, -0.15f);
+            tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
+            tr.rotation = new Quaternion(0, 0, 0, 0);
+
+            anim.SetBool("isPickup", false);
+            collidedTable = null;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -193,6 +207,21 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Wall")
+        {
             this.transform.Translate(-moveVec * 2);
+        }
+
+        if (other.gameObject.tag == "Table")
+        {
+            Debug.Log("충돌 발생");
+            for (int i = 0; i < arrayChild.Length; i++)
+            {
+                if (other.gameObject == arrayChild[i])
+                {
+                    Debug.Log(i);
+                    collidedTable = arrayChild[i];
+                }
+            }
+        }
     }
 }

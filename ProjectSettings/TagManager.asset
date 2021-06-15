@@ -16,6 +16,7 @@ TagManager:
   - Wall
   - BurgerShop
   - guest
+  - Table
   layers:
   - Default
   - TransparentFX
