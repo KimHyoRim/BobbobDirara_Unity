@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
-
     }
     void Start()
     {
@@ -44,7 +43,10 @@ public class Player : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
 
         if (KeyboardInput.playerVisited == true)
-            this.transform.position = new Vector3(-323.9f, 69.941f, 85.734f);
+        {
+            this.transform.position = new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 69.941f, 85.734f);
+        }
+ 
         KeyboardInput.playerVisited = false;
     }
 
@@ -134,6 +136,15 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "counter")
         {
+            if (other.name == "PW_stove")
+                KeyboardInput.counteridx = 0.0f;
+            else if (other.name == "PW_stove (1)")
+                KeyboardInput.counteridx = 1.0f;
+            else if (other.name == "PW_stove (2)")
+                KeyboardInput.counteridx = 2.0f;
+            else if (other.name == "PW_stove (3)")
+                KeyboardInput.counteridx = 3.0f;
+           
             SceneManager.LoadScene("MiniGame_01");
         }
 

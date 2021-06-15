@@ -5,32 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class KeyboardInput : MonoBehaviour
 {
-    public GameObject[] ballList = new GameObject[8];
-    public GameObject[] BallType = new GameObject[4];
+    //public GameObject[] ballList = new GameObject[8];
+    public GameObject[] ballList;
+    public GameObject[] ballType = new GameObject[4];
     private int i = 0;
-    private AudioSource audio;
+    private AudioSource myaudio;
 
     public static bool playerVisited = false;
+    public static float counteridx = 0.0f;
 
     public void Start()
     {
+        ballList = new GameObject[8];
+
         i = 0;
-        Debug.Log(ballList.Length);
         InitBall();
-        audio = GetComponent<AudioSource>();
+        myaudio = GetComponent<AudioSource>();
     }
 
     void Awake()
     {
-       
     }
 
-    void InitBall()
+    private void InitBall()
     {
+        ballType[0] = GameObject.Find("Up");
+        ballType[1] = GameObject.Find("Down");
+        ballType[2] = GameObject.Find("Left");
+        ballType[3] = GameObject.Find("Right");
+
         for (int j = 0; j < 8; j++)
         {
             int randomObj = Random.Range(0, 3);
-            ballList[j] = (GameObject)Instantiate(BallType[randomObj], new Vector3(-7.0f + 1.2f * j, 6.819498f, -11.89f),
+            ballList[j] = (GameObject)Instantiate(ballType[randomObj], new Vector3(-7.0f + 1.2f * j, 6.819498f, -11.89f),
                     Quaternion.identity);
             ballList[j].transform.rotation = Quaternion.Euler(0, 90, 0);
         }
@@ -41,43 +48,38 @@ public class KeyboardInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && ballList[i].tag == "Up")
         {
             ballList[i].SetActive(false);
-            i += 1;
             GameObject.Find("Up").GetComponent<AudioSource>().Play();
             //audio.Play();
-            Debug.Log(i);
-            Debug.Log("Up");
+            i += 1;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && ballList[i].tag == "Down")
-        {
-            Debug.Log("Down");
+        { 
             ballList[i].SetActive(false);
             GameObject.Find("Down").GetComponent<AudioSource>().Play();
             //audio.Play();
             i += 1;
-            Debug.Log(i);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow) && ballList[i].tag == "Left")
         {
-            Debug.Log("Left");
             ballList[i].SetActive(false);
             GameObject.Find("Left").GetComponent<AudioSource>().Play(); 
             //audio.Play();
             i += 1;
-            Debug.Log(i);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow) && ballList[i].tag == "Right")
         {
-            Debug.Log("Right");
             ballList[i].SetActive(false);
             GameObject.Find("Right").GetComponent<AudioSource>().Play();
             //audio.Play();
             i += 1;
-            Debug.Log(i);
         }
 
         if (i == ballList.Length)
         {
             playerVisited = true;
+            //for (int j = 0; j < 8; j++)
+            //    Destroy(ballList[j]);
+            i = 0;
             SceneManager.LoadScene("MainStageScene");
         }
     }
