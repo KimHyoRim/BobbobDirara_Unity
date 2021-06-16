@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 7.0f;
+    public float speed = 5.0f;
 
     Vector3 moveVec;
 
@@ -38,6 +38,14 @@ public class Player : MonoBehaviour
     float rx;
     float ry;
 
+    int cnt = 0;
+
+    public AudioSource CleanSound;
+    public AudioSource PickupSound;
+    public AudioSource DropSound;
+
+    public ParticleSystem Twinkle;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -63,6 +71,12 @@ public class Player : MonoBehaviour
 
         foodleftpoint = GameObject.Find("foodleftpoint");
         foodrightpoint = GameObject.Find("foodrightpoint");
+
+        CleanSound = GameObject.Find("Clean").GetComponent<AudioSource>();
+        PickupSound = GameObject.Find("Pickup").GetComponent<AudioSource>();
+        DropSound = GameObject.Find("Drop").GetComponent<AudioSource>();
+
+        Twinkle = GameObject.Find("Twinkle").GetComponent<ParticleSystem>();
     }
 
     void makeFood()
@@ -70,6 +84,7 @@ public class Player : MonoBehaviour
         food = (GameObject)Instantiate(foodType[KeyboardInput.counteridx], new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 71.416f, 87.9f),
                     Quaternion.identity);
         foodnum += 1;
+        PickupSound.Play();
 
         if (KeyboardInput.counteridx == 1)
         {
@@ -91,12 +106,14 @@ public class Player : MonoBehaviour
         }
         Move();
         CharactorRotation();
+        PickupFood();
+        DropFood();
+        CleanTable();
     }
 
     void FixedUpdate()
     {
         FreezeRotation();
-        PickupFood();
     }
 
     void FreezeRotation()
@@ -174,7 +191,7 @@ public class Player : MonoBehaviour
 
     void PickupFood()
     {
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.P) && myFoodList != null)
         {
             if (myHandList.Count == 0)
             {
@@ -195,7 +212,10 @@ public class Player : MonoBehaviour
 
             anim.SetBool("isPickup", true);
         }
+    }
 
+    void DropFood()
+    {
         if (Input.GetKeyDown(KeyCode.X) && collidedTable != null)
         {
             if (collidedTable.gameObject.GetComponentsInChildren<Transform>().Length < 2)
@@ -204,10 +224,6 @@ public class Player : MonoBehaviour
                 tr.SetParent(collidedTable.transform);
                 tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
                 tr.rotation = new Quaternion(0, 0, 0, 0);
-
-                if (myHandList.Count == 0)
-                    anim.SetBool("isPickup", false);
-                collidedTable = null;
             }
             else
             {
@@ -219,10 +235,38 @@ public class Player : MonoBehaviour
                 tr.SetParent(collidedTable.transform);
                 tr.localPosition = new Vector3(0.0f, 17.5f, 4.0f);
                 tr.rotation = new Quaternion(0, 0, 0, 0);
+            }
+            if (myHandList.Count == 0)
+                anim.SetBool("isPickup", false);
+            collidedTable = null;
+            DropSound.Play();
+        }
+    }
 
-                if (myHandList.Count == 0)
-                    anim.SetBool("isPickup", false);
-                collidedTable = null;
+    void CleanTable()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && collidedTable != null)
+        {
+            if (collidedTable.gameObject.GetComponentsInChildren<Transform>().Length > 1)
+            {
+                cnt += 1;
+                CleanSound.Play();
+                if (cnt == 10)
+                {
+                    Transform[] childList = collidedTable.gameObject.GetComponentsInChildren<Transform>(true);
+                    if (childList != null)
+                    {
+                        for (int i = 1; i < childList.Length; i++)
+                        {
+                            if (childList[i] != transform)
+                                Destroy(childList[i].gameObject);
+                        }
+                    }
+                    cnt = 0;
+                    Twinkle.GetComponent<Transform>().position = collidedTable.transform.position;
+                    Twinkle.GetComponent<Transform>().position += new Vector3(0, 1.0f, 0);
+                    Twinkle.Play();
+                }
             }
         }
     }
