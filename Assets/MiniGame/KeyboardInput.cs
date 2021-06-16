@@ -54,23 +54,6 @@ public class KeyboardInput : MonoBehaviour
             ballList[j].SetActive(true);
         }
     }
-    //private List<GameObject> ShufflelList<GameObject> (List<GameObject> mylist)
-    //{
-    //    int random1 = 0;
-    //    int random2 = 0;
-
-    //    for (int j = 0; j < mylist.Count; j++)
-    //    {
-    //        random1 = Random.Range(0, mylist.Count);
-    //        random2 = Random.Range(0, mylist.Count);
-
-    //        GameObject temp = mylist[random1];
-    //        mylist[random1] = mylist[random2];
-    //        mylist[random2] = temp;
-    //    }
-
-    //    return mylist;
-    //}
 
     public void Update()
     {
@@ -85,46 +68,35 @@ public class KeyboardInput : MonoBehaviour
                 RebuildBall();
             }
 
-            Debug.Log(ballList.Count);
-
             playerVisited = true;
-
-            Debug.Log("미니카메라 on");
 
             if (Input.GetKeyDown(KeyCode.UpArrow) && ballList[i].tag == "Up")
             {
                 ballList[i].SetActive(false);
                 GameObject.Find("Up").GetComponent<AudioSource>().Play();
-                //audio.Play();
                 i += 1;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) && ballList[i].tag == "Down")
             {
                 ballList[i].SetActive(false);
                 GameObject.Find("Down").GetComponent<AudioSource>().Play();
-                //audio.Play();
                 i += 1;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) && ballList[i].tag == "Left")
             {
                 ballList[i].SetActive(false);
                 GameObject.Find("Left").GetComponent<AudioSource>().Play();
-                //audio.Play();
                 i += 1;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) && ballList[i].tag == "Right")
             {
                 ballList[i].SetActive(false);
                 GameObject.Find("Right").GetComponent<AudioSource>().Play();
-                //audio.Play();
                 i += 1;
             }
 
             if (i == 8)
             {
-                //for (int j = 0; j < 8; j++)
-                //    Destroy(ballList[j]);
-
                 GameObject player = GameObject.Find("Player");
                 player.transform.position = new Vector3(-327.5f + 1.2f * counteridx, 69.941f, 86.734f);
                 isCorrected = true;
@@ -133,7 +105,6 @@ public class KeyboardInput : MonoBehaviour
 
                 Player.miniCamera.SetActive(false);
                 Player.mainCamera.SetActive(true);
-                //SceneManager.LoadScene("MainStageScene");
             }
         }
     }
