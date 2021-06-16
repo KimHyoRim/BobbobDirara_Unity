@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,18 +13,6 @@ public class Player : MonoBehaviour
     Animator anim;
 
     [SerializeField]
-    private float lookSensitivity;
-
-    [SerializeField]
-    private float cameraRotationLimit;        
-   
-    private float currentCharactorRotationX;
-    private float currentCharactorRotationY;
- 
-    private float currentCameraRotationX;
-    private float currentCameraRotationY;
-
-    [SerializeField]
     private Camera theCamera;
     private Rigidbody myRigid;
 
@@ -34,7 +23,7 @@ public class Player : MonoBehaviour
     public Queue<GameObject> myFoodList = new Queue<GameObject>();
     public Queue<GameObject> myHandList = new Queue<GameObject>();
     public List<GameObject> dropFoodList = new List<GameObject>();
-    public  GameObject food;
+    public GameObject food;
     public GameObject[] foodType = new GameObject[4];
 
     public GameObject foodleftpoint;
@@ -45,6 +34,9 @@ public class Player : MonoBehaviour
 
     public static GameObject mainCamera;
     public static GameObject miniCamera;
+
+    float rx;
+    float ry;
 
     void Awake()
     {
@@ -74,7 +66,7 @@ public class Player : MonoBehaviour
     }
 
     void makeFood()
-    {   
+    {
         food = (GameObject)Instantiate(foodType[KeyboardInput.counteridx], new Vector3(-327.5f + 1.2f * KeyboardInput.counteridx, 71.416f, 87.9f),
                     Quaternion.identity);
         foodnum += 1;
@@ -84,7 +76,6 @@ public class Player : MonoBehaviour
             Transform tr = food.GetComponent<Transform>();
             tr.Rotate(new Vector3(0f, 180f, 0f));
         }
-
 
         myFoodList.Enqueue(food);
         KeyboardInput.isCorrected = false;
@@ -100,12 +91,12 @@ public class Player : MonoBehaviour
         }
         Move();
         CharactorRotation();
-        PickupFood();
     }
 
     void FixedUpdate()
     {
         FreezeRotation();
+        PickupFood();
     }
 
     void FreezeRotation()
@@ -121,7 +112,6 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-
         if (Input.GetKey(KeyCode.W))
         {
 
@@ -170,11 +160,16 @@ public class Player : MonoBehaviour
 
     void CharactorRotation()
     {
-        float char_Y_Ro = Input.GetAxisRaw("Mouse X");
-        float char_X_Ro = Input.GetAxisRaw("Mouse Y");
+        float char_Y_Ro = Input.GetAxisRaw("Mouse Y");
+        float char_X_Ro = Input.GetAxisRaw("Mouse X");
 
-        this.transform.localRotation *= Quaternion.Euler(0, char_Y_Ro, 0);
-        theCamera.transform.localRotation *= Quaternion.Euler(-char_X_Ro, 0, 0);
+        rx += speed * char_Y_Ro * Time.deltaTime * 10;
+        ry += speed * char_X_Ro * Time.deltaTime * 10;
+
+        rx = Mathf.Clamp(rx, -45, 30);
+
+        this.transform.eulerAngles = new Vector3(0, ry, 0);
+        theCamera.transform.eulerAngles = new Vector3(-rx, ry, 0);
     }
 
     void PickupFood()
@@ -217,12 +212,12 @@ public class Player : MonoBehaviour
             else
             {
                 Transform ytr = collidedTable.gameObject.GetComponentsInChildren<Transform>()[1];
-                ytr.localPosition = new Vector3(0.0f, 17.5f, -5.0f);
+                ytr.localPosition = new Vector3(0.0f, 17.5f, -4.0f);
 
                 Transform tr = myHandList.Dequeue().GetComponent<Transform>();
-                
+
                 tr.SetParent(collidedTable.transform);
-                tr.localPosition = new Vector3(0.0f, 17.5f, 5.0f);
+                tr.localPosition = new Vector3(0.0f, 17.5f, 4.0f);
                 tr.rotation = new Quaternion(0, 0, 0, 0);
 
                 if (myHandList.Count == 0)
