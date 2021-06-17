@@ -30,7 +30,6 @@ public class Guest : MonoBehaviour
     Stopwatch waitWatch;
 
     private bool isFirst;
-    private bool isFirstWait;
 
     bool isSitting = false;
 
@@ -39,7 +38,7 @@ public class Guest : MonoBehaviour
     public GameObject[] foodType = new GameObject[4];
     public GameObject food;
     public List<GameObject> foodList = new List<GameObject>();
-   
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -54,7 +53,6 @@ public class Guest : MonoBehaviour
         startPos = new Vector3(-323.25f, 69.89f, 68.11f);
         isCollision = false;
         isFirst = true;
-        isFirstWait = false;
 
         firstWaitWatch.Start();
 
@@ -107,7 +105,7 @@ public class Guest : MonoBehaviour
             for (int i = 0; i < foodList.Count; i++)
                 Destroy(foodList[i]);
         }
-        // UnityEngine.Debug.Log(watch.ElapsedMilliseconds);
+
 
     }
 
@@ -140,7 +138,6 @@ public class Guest : MonoBehaviour
         {
             isCollision = true;
             isSitting = true;
-            goalObject.GetComponent<GoalScript>().SetisCollision(true);
             anim.SetBool("Waiting", true);
             anim.SetBool("isLeave", false);
 
@@ -174,7 +171,7 @@ public class Guest : MonoBehaviour
             food = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
             randFood = UnityEngine.Random.Range(0, 3);
-            GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity); 
+            GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
             food.GetComponent<Transform>().SetParent(thisTrans);
             food.GetComponent<Transform>().localPosition = new Vector3(-5.0f, 1.5f, 0.0f);
@@ -201,11 +198,21 @@ public class Guest : MonoBehaviour
             }
         }
 
+        goalObject.GetComponent<GoalScript>().SetisCollision(true);
+
         thisTrans = GetComponent<Transform>();
         goalTrans = goalObject.GetComponent<Transform>();
         nma = GetComponent<NavMeshAgent>();
 
-        goalPos = new Vector3(goalTrans.position.x, goalTrans.position.y, goalTrans.position.z - 0.7f);
+
+        if (randGoal == 1 || randGoal == 2 || randGoal == 3)
+        {
+            goalPos = new Vector3(goalTrans.position.x - 0.5f, goalTrans.position.y, goalTrans.position.z - 0.5f);
+        }
+        else if (randGoal == 4 || randGoal == 5 || randGoal == 6)
+        {
+            goalPos = new Vector3(goalTrans.position.x + 0.5f, goalTrans.position.y, goalTrans.position.z - 0.5f);
+        }
 
         UnityEngine.Debug.Log(randGoal);
     }

@@ -58,17 +58,16 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         myRigid = GetComponent<Rigidbody>();
 
         KeyboardInput.playerVisited = false;
 
         mainCamera = GameObject.FindWithTag("MainCamera");
-        //miniCamera = GameObject.FindWithTag("MiniCamera");
-        //mainCamera.SetActive(false);
-        GameManager.MiniCam.SetActive(false);
+        miniCamera = GameObject.FindWithTag("MiniCamera");
+        miniCamera.SetActive(false);
 
         foodType[0] = GameObject.Find("Pizza_Mesh");
         foodType[1] = GameObject.Find("french frice");
@@ -295,7 +294,7 @@ public class Player : MonoBehaviour
                 KeyboardInput.counteridx = 3;
 
             mainCamera.SetActive(false);
-            GameManager.MiniCam.SetActive(true);
+            miniCamera.SetActive(true);
         }
 
         if (other.tag == "BurgerShop")
@@ -325,7 +324,7 @@ public class Player : MonoBehaviour
     
     void TurnonoffFever()
     {
-        // 피버 받는 조건 되면 트루키게
+        // ?�버 받는 조건 ?�면 ?�루?�게
         if (FeverCheck)
         {
             Fever.SetActive(true);
