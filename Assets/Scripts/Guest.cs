@@ -36,7 +36,6 @@ public class Guest : MonoBehaviour
     public int randFoodnum;
     public static int randFood;
     public GameObject[] foodType = new GameObject[4];
-    public GameObject food;
     public List<GameObject> foodList = new List<GameObject>();
 
     void Awake()
@@ -105,8 +104,6 @@ public class Guest : MonoBehaviour
             for (int i = 0; i < foodList.Count; i++)
                 Destroy(foodList[i].gameObject);
         }
-
-
     }
 
     void FixedUpdate()
@@ -156,36 +153,17 @@ public class Guest : MonoBehaviour
 
     void order()
     {
-        randFoodnum = UnityEngine.Random.Range(0, 1);
-        //UnityEngine.Debug.Log("randFoodnum" + randFoodnum);
-        if (randFoodnum == 0)
+        if (foodList.Count < 1)
         {
-            randFood = UnityEngine.Random.Range(0, 3);
-            food = (GameObject)Instantiate(foodType[randFood], thisTrans.position + new Vector3(0.0f, 1.5f, 0.0f),
+            randFood = UnityEngine.Random.Range(0, 4);
+            GameObject food = (GameObject)Instantiate(foodType[randFood], thisTrans.position + new Vector3(0.0f, 1.5f, 0.0f),
                     Quaternion.identity);
             food.GetComponent<Transform>().SetParent(thisTrans);
-            foodList.Add(food);
-        }
-        else if (randFoodnum == 1)
-        {
-            randFood = UnityEngine.Random.Range(0, 4);
-            food = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
-
-            food.GetComponent<Transform>().SetParent(thisTrans);
-            food.GetComponent<Transform>().localPosition = new Vector3(-3.0f, 1.5f, 0.0f);
+            food.GetComponent<Transform>().localPosition = new Vector3(0.0f, 1.5f, 0.0f);
             foodList.Add(food);
 
-            randFood = UnityEngine.Random.Range(0, 4);
-            GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
-
-            food2.GetComponent<Transform>().SetParent(thisTrans);
-            food2.GetComponent<Transform>().localPosition = new Vector3(3.0f, 1.5f, 0.0f);
-            foodList.Add(food2);
+            UnityEngine.Debug.Log("foodList±Ê¿Ã + " + foodList.Count);
         }
-    }
-
-    void MatchFood()
-    {
     }
 
     void MakeRandGoal()
