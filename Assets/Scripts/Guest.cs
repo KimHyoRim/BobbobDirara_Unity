@@ -102,7 +102,10 @@ public class Guest : MonoBehaviour
             MakeRandGoal();
 
             for (int i = 0; i < foodList.Count; i++)
+            {
                 Destroy(foodList[i].gameObject);
+                foodList.RemoveAt(i);
+            }
         }
     }
 
@@ -161,8 +164,6 @@ public class Guest : MonoBehaviour
             food.GetComponent<Transform>().SetParent(thisTrans);
             food.GetComponent<Transform>().localPosition = new Vector3(0.0f, 1.5f, 0.0f);
             foodList.Add(food);
-
-            UnityEngine.Debug.Log("foodList±Ê¿Ã + " + foodList.Count);
         }
     }
 
