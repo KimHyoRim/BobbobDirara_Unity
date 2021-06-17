@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public GameObject foodleftpoint;
     public GameObject foodrightpoint;
 
-    public static GameObject[,] SeatList = new GameObject[2,6];
+    public static GameObject[,] SeatList = new GameObject[2, 6];
 
     //public GameObject[] arrayChild = new GameObject[6];
     public GameObject collidedTable;
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     public GameObject myGuest;
 
-
+    Guest guestn;
 
     void Awake()
     {
@@ -95,7 +95,8 @@ public class Player : MonoBehaviour
 
         Twinkle = GameObject.Find("Twinkle").GetComponent<ParticleSystem>();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
+        {
             SeatList[0, i] = GameObject.Find("table" + (i + 1).ToString());
             SeatList[1, i] = GameObject.Find("chair" + (i + 1).ToString());
         }
@@ -160,9 +161,9 @@ public class Player : MonoBehaviour
             if (!isBorder)
             {
                 moveVec = Vector3.forward * speed * Time.deltaTime;
-                
+
                 this.transform.Translate(moveVec);
-               
+
             }
         }
         if (Input.GetKey(KeyCode.S))
@@ -173,7 +174,7 @@ public class Player : MonoBehaviour
                 moveVec = Vector3.back * speed * Time.deltaTime;
 
                 this.transform.Translate(moveVec);
-                
+
             }
         }
         if (Input.GetKey(KeyCode.A))
@@ -247,15 +248,13 @@ public class Player : MonoBehaviour
             if (SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].name == myHandList.Peek().name)
             {
                 isMatch = true;
-                Debug.Log("1" + SeatList[1, collidedNum].transform.GetChild(1).gameObject);
-                Debug.Log("2" + SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[2].name);
-                myGuest = GameObject.Find(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[2].name);
-                //Debug.Log(myGuest.isSitting);
-                
-                //Debug.Log(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.matchGetter());
-                //SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.myMatchSetter(true);
-                //Debug.Log(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.myMatchGetter());
-                ////Debug.Log("guest ismatch " + myGuest.myMatch);
+                myGuest = SeatList[1, collidedNum].transform.GetChild(1).gameObject;
+                guestn = myGuest.GetComponent<Guest>();
+                Debug.Log(guestn.myMatch);
+                guestn.myMatch = true;
+
+                guestn.GetComponentInChildren<degreehungry>().Add = false;
+                Debug.Log(guestn.GetComponentInChildren<degreehungry>().Add);
                 break;
             }
             else
@@ -296,6 +295,8 @@ public class Player : MonoBehaviour
                 DropSound.Play();
                 payment += 1000;
                 Debug.Log(payment);
+
+
             }
             else
                 DisMatch.Play();
@@ -373,7 +374,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+
     void TurnonoffFever()
     {
         // ?�버 받는 조건 ?�면 ?�루?�게
@@ -389,7 +390,6 @@ public class Player : MonoBehaviour
 
 
     }
-    
-}
 
+}
 

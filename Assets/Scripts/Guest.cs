@@ -41,6 +41,8 @@ public class Guest : MonoBehaviour
     public bool myMatch = false;
     public static bool isMatch = false;
 
+    public GameObject bar;
+
     public bool matchGetter()
     {
         return myMatch;
@@ -58,6 +60,9 @@ public class Guest : MonoBehaviour
 
     void Start()
     {
+        bar = transform.Find("HungryBar").gameObject;
+        bar.SetActive(false);
+
         myRigid = GetComponent<Rigidbody>();
         watch = new Stopwatch();
         firstWaitWatch = new Stopwatch();
@@ -72,10 +77,12 @@ public class Guest : MonoBehaviour
         foodType[1] = GameObject.Find("french frice");
         foodType[2] = GameObject.Find("Sushi");
         foodType[3] = GameObject.Find("Chicken");
+
+        UnityEngine.Debug.Log(Player.payment);
     }
 
     void Update()
-    {
+    { 
         if (isFirst == true)
         {
             for (int i = 0; i < 6; ++i)
@@ -98,28 +105,10 @@ public class Guest : MonoBehaviour
                 nma.SetDestination(goalPos);
         }
 
-        if (watch.ElapsedMilliseconds >= 10000)
-        {
-            anim.SetBool("Waiting", false);
-            anim.SetBool("isLeave", true);
+        if (isSitting && Player.SeatList[0, randGoal - 1].GetComponentsInChildren<Transform>().Length < 3)
+            order();
 
-            watch.Stop();
-            watch.Reset();
-
-            thisTrans.parent = null;
-            thisTrans.transform.position = startPos;
-            goalObject.GetComponent<GoalScript>().SetisCollision(false);
-            isCollision = false;
-            isSitting = false;
-            nma.enabled = true;
-            MakeRandGoal();
-
-            for (int i = 0; i < foodList.Count; i++)
-            {
-                Destroy(foodList[i].gameObject);
-                foodList.RemoveAt(i);
-            }
-        }
+        Leave();
     }
 
     void FixedUpdate()
@@ -158,17 +147,22 @@ public class Guest : MonoBehaviour
             //nma.SetDestination(collision.transform.position);
             thisTrans.SetParent(goalObject.GetComponent<Transform>());
             thisTrans.localPosition = new Vector3(0.0f, 3.0f, 0.0f);
-            this.transform.rotation = new Quaternion(0, 0, 0, 0);   
+            this.transform.rotation = new Quaternion(0, 0, 0, 0);
             thisTrans.localScale = new Vector3(14.28f, 16.6f, 16.6f);
 
-            order();
-
-            watch.Start();
+            //order();
         }
     }
 
     void order()
     {
+        //this.GetComponentInChildren<GameObject>().SetActive(true);
+        bar.SetActive(true);
+
+        this.GetComponentInChildren<degreehungry>().Add = true;
+        
+        //UnityEngine.Debug.Log("2 Add " + this.GetComponentInChildren<degreehungry>().Add);
+
         if (foodList.Count < 1)
         {
             randFood = UnityEngine.Random.Range(0, 4);
@@ -177,6 +171,37 @@ public class Guest : MonoBehaviour
             food.GetComponent<Transform>().SetParent(thisTrans);
             food.GetComponent<Transform>().localPosition = new Vector3(0.0f, 1.5f, 0.0f);
             foodList.Add(food);
+        }
+    }
+
+    void Leave()
+    {
+        if (myMatch)
+        {
+            watch.Start();
+            if (watch.ElapsedMilliseconds > 5000)
+            {
+                anim.SetBool("Waiting", false);
+                anim.SetBool("isLeave", true);
+
+                watch.Stop();
+                watch.Reset();
+
+                thisTrans.parent = null;
+                thisTrans.transform.position = startPos;
+                goalObject.GetComponent<GoalScript>().SetisCollision(false);
+                isCollision = false;
+                isSitting = false;
+                myMatch = false;
+                nma.enabled = true;
+                MakeRandGoal();
+
+                for (int i = 0; i < foodList.Count; i++)
+                {
+                    Destroy(foodList[i].gameObject);
+                    foodList.RemoveAt(i);
+                }
+            }
         }
     }
 
@@ -211,8 +236,8 @@ public class Guest : MonoBehaviour
             goalPos = new Vector3(goalTrans.position.x + 0.7f, goalTrans.position.y, goalTrans.position.z - 0.5f);
         }
 
-        UnityEngine.Debug.Log(randGoal+"\n");
-        
+        UnityEngine.Debug.Log(randGoal + "\n");
+
     }
 
     IEnumerator SomeCoroutine(int i)
