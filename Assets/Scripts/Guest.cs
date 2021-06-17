@@ -144,8 +144,9 @@ public class Guest : MonoBehaviour
             nma.enabled = false;
             //nma.SetDestination(collision.transform.position);
             thisTrans.SetParent(goalObject.GetComponent<Transform>());
-            thisTrans.localPosition = new Vector3(0.0f, 0.0f, 1.0f);
+            thisTrans.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
             this.transform.rotation = new Quaternion(0, 0, 0, 0);
+            thisTrans.localScale = new Vector3(14.28f, 16.6f, 16.6f);
 
             order();
 
@@ -207,14 +208,15 @@ public class Guest : MonoBehaviour
 
         if (randGoal == 1 || randGoal == 2 || randGoal == 3)
         {
-            goalPos = new Vector3(goalTrans.position.x - 0.5f, goalTrans.position.y, goalTrans.position.z - 0.5f);
+            goalPos = new Vector3(goalTrans.position.x - 0.7f, goalTrans.position.y, goalTrans.position.z - 0.5f);
         }
         else if (randGoal == 4 || randGoal == 5 || randGoal == 6)
         {
-            goalPos = new Vector3(goalTrans.position.x + 0.5f, goalTrans.position.y, goalTrans.position.z - 0.5f);
+            goalPos = new Vector3(goalTrans.position.x + 0.7f, goalTrans.position.y, goalTrans.position.z - 0.5f);
         }
 
-        UnityEngine.Debug.Log(randGoal);
+        UnityEngine.Debug.Log(randGoal+"\n");
+        
     }
 
     IEnumerator SomeCoroutine(int i)
