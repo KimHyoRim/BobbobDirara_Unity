@@ -32,9 +32,14 @@ public class Guest : MonoBehaviour
     private bool isFirst;
     private bool isFirstWait;
 
+    bool isSitting = false;
 
-
-
+    public int randFoodnum;
+    public static int randFood;
+    public GameObject[] foodType = new GameObject[4];
+    public GameObject food;
+    public List<GameObject> foodList = new List<GameObject>();
+   
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -53,11 +58,10 @@ public class Guest : MonoBehaviour
 
         firstWaitWatch.Start();
 
-
-
-
-
-
+        foodType[0] = GameObject.Find("Pizza_Mesh");
+        foodType[1] = GameObject.Find("french frice");
+        foodType[2] = GameObject.Find("Sushi");
+        foodType[3] = GameObject.Find("Chicken");
     }
 
     void Update()
@@ -76,28 +80,33 @@ public class Guest : MonoBehaviour
                     }
                 }
             }
-
-
         }
         else
         {
             Move();
-            nma.SetDestination(goalPos);
+            if (!isSitting)
+                nma.SetDestination(goalPos);
         }
-
-
-
 
         if (watch.ElapsedMilliseconds >= 10000)
         {
+            anim.SetBool("Waiting", false);
+            anim.SetBool("isLeave", true);
+
             watch.Stop();
             watch.Reset();
-            thisTrans.transform.localPosition = startPos;
+
+            thisTrans.parent = null;
+            thisTrans.transform.position = startPos;
             goalObject.GetComponent<GoalScript>().SetisCollision(false);
             isCollision = false;
+            isSitting = false;
+            nma.enabled = true;
             MakeRandGoal();
-        }
 
+            for (int i = 0; i < foodList.Count; i++)
+                Destroy(foodList[i]);
+        }
         // UnityEngine.Debug.Log(watch.ElapsedMilliseconds);
 
     }
@@ -117,10 +126,10 @@ public class Guest : MonoBehaviour
         if (isCollision == true)
             moveVec = Vector3.zero;
         else
+        {
             moveVec = Vector3.forward * speed * Time.deltaTime;
-
-
-        this.transform.Translate(moveVec);
+            this.transform.Translate(moveVec);
+        }
 
         anim.SetBool("isWalk", moveVec != Vector3.zero);
     }
@@ -130,8 +139,50 @@ public class Guest : MonoBehaviour
         if (collision.gameObject.tag == "goal")
         {
             isCollision = true;
+            isSitting = true;
             goalObject.GetComponent<GoalScript>().SetisCollision(true);
+            anim.SetBool("Waiting", true);
+            anim.SetBool("isLeave", false);
+
+            nma.enabled = false;
+            //nma.SetDestination(collision.transform.position);
+            thisTrans.SetParent(goalObject.GetComponent<Transform>());
+            thisTrans.localPosition = new Vector3(0.0f, 0.0f, 1.0f);
+            this.transform.rotation = new Quaternion(0, 0, 0, 0);
+
+            order();
+
             watch.Start();
+        }
+    }
+
+    void order()
+    {
+        randFoodnum = UnityEngine.Random.Range(0, 1);
+
+        if (randFoodnum == 0)
+        {
+            randFood = UnityEngine.Random.Range(0, 3);
+            food = (GameObject)Instantiate(foodType[randFood], thisTrans.position + new Vector3(0.0f, 1.5f, 0.0f),
+                    Quaternion.identity);
+            food.GetComponent<Transform>().SetParent(thisTrans);
+            foodList.Add(food);
+        }
+        else
+        {
+            randFood = UnityEngine.Random.Range(0, 3);
+            food = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
+
+            randFood = UnityEngine.Random.Range(0, 3);
+            GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity); 
+
+            food.GetComponent<Transform>().SetParent(thisTrans);
+            food.GetComponent<Transform>().localPosition = new Vector3(-5.0f, 1.5f, 0.0f);
+            foodList.Add(food);
+
+            food2.GetComponent<Transform>().SetParent(thisTrans);
+            food2.GetComponent<Transform>().localPosition = new Vector3(5.0f, 1.0f, 0.0f);
+            foodList.Add(food2);
         }
     }
 
@@ -162,6 +213,6 @@ public class Guest : MonoBehaviour
     IEnumerator SomeCoroutine(int i)
     {
         yield return new WaitForSeconds(5f * i);
-        UnityEngine.Debug.Log("╬╬╧ъ");
+        UnityEngine.Debug.Log("гого");
     }
 }

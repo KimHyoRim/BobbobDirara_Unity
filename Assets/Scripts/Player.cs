@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         PickupSound = GameObject.Find("Pickup").GetComponent<AudioSource>();
         DropSound = GameObject.Find("Drop").GetComponent<AudioSource>();
 
-        //Twinkle = GameObject.Find("Twinkle").GetComponent<ParticleSystem>();
+        Twinkle = GameObject.Find("Twinkle").GetComponent<ParticleSystem>();
     }
 
     void makeFood()
@@ -265,7 +265,7 @@ public class Player : MonoBehaviour
                     cnt = 0;
                     Twinkle.GetComponent<Transform>().position = collidedTable.transform.position;
                     Twinkle.GetComponent<Transform>().position += new Vector3(0, 1.0f, 0);
-                    //Twinkle.Play();
+                    Twinkle.Play();
                 }
             }
         }
