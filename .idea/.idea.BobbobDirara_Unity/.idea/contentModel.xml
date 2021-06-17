@@ -105,6 +105,39 @@
         <e p="MiniGame" t="Include">
           <e p="MakeMiniBall.cs" t="Include" />
         </e>
+        <e p="Particlecollection_Free samples" t="Include">
+          <e p="Plugins" t="Include">
+            <e p="Effect" t="Include">
+              <e p="Editor" t="Include">
+                <e p="EffectControllerInspector.cs" t="Include" />
+                <e p="EffectToolBar.cs" t="Include" />
+                <e p="RenderEffectInspector.cs" t="Include" />
+                <e p="ShaderCustomEditor" t="Include">
+                  <e p="ShaderMaterialsEditor.cs" t="Include" />
+                </e>
+                <e p="XUIUtils.cs" t="Include" />
+              </e>
+              <e p="Script" t="Include">
+                <e p="CameraTarget.cs" t="Include" />
+                <e p="EffectController.cs" t="Include" />
+                <e p="EffectDemo.cs" t="Include" />
+                <e p="EffectShaderPropertyStr.cs" t="Include" />
+                <e p="RenderEffect.cs" t="Include" />
+                <e p="TransformExtension.cs" t="Include" />
+              </e>
+              <e p="Shader" t="Include">
+                <e p="effect_distortion_mask.shader" t="Include" />
+                <e p="ParticleAddEffect.shader" t="Include" />
+                <e p="ParticleAddSoftEffect.shader" t="Include" />
+                <e p="ParticleBlendEffect.shader" t="Include" />
+                <e p="ParticlePremultiplyBlend.shader" t="Include" />
+                <e p="Toon Additive.shader" t="Include" />
+                <e p="Toon Blended Premmultiply.shader" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="READ ME.txt" t="Include" />
+        </e>
         <e p="POLYGON city pack" t="Include">
           <e p="Read_me.txt" t="Include" />
         </e>
@@ -112,6 +145,9 @@
           <e p="ChangeLight.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="Billboard.cs" t="Include" />
+          <e p="degreehungry.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="GoalScript.cs" t="Include" />
           <e p="Guest.cs" t="Include" />
           <e p="KeyboardInput.cs" t="Include" />
