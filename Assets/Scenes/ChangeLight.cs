@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class ChangeLight : MonoBehaviour
 {
-    private Light thelight;
+    private Transform thelight;
 
-    private float currentintensity;
+   
 
 
     // Start is called before the first frame update
     void Start()
     {
-        thelight = GetComponent<Light>();
-        currentintensity = thelight.intensity;
+        thelight = GetComponent<Transform>();
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentintensity -= Time.deltaTime * 0.01f;
-        thelight.intensity = currentintensity;
+        thelight.Rotate(Vector3.right * Time.deltaTime*10);
+         
+       
 
     }
 }
