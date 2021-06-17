@@ -58,7 +58,7 @@ public class KeyboardInput : MonoBehaviour
     public void Update()
     {
 
-        if (Player.miniCamera.activeSelf == true)
+        if (GameManager.MiniCam.activeSelf == true)
         {
             if (ballList.Count == 0)
                 InitBall();
@@ -103,7 +103,7 @@ public class KeyboardInput : MonoBehaviour
 
                 i = 0;
 
-                Player.miniCamera.SetActive(false);
+                GameManager.MiniCam.SetActive(false);
                 Player.mainCamera.SetActive(true);
             }
         }

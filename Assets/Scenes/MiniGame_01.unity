@@ -522,20 +522,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32156cee359b3b34a834df789e611e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   ballType:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  i: 0
 --- !u!4 &855426191
 Transform:
   m_ObjectHideFlags: 0
@@ -969,20 +961,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32156cee359b3b34a834df789e611e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   ballType:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  i: 0
 --- !u!4 &1376891264
 Transform:
   m_ObjectHideFlags: 0
