@@ -66,8 +66,8 @@ public class Player : MonoBehaviour
         KeyboardInput.playerVisited = false;
 
         mainCamera = GameObject.FindWithTag("MainCamera");
-        miniCamera = GameObject.FindWithTag("MiniCamera");
-        miniCamera.SetActive(false);
+        //miniCamera = GameObject.FindWithTag("MiniCamera");
+        GameManager.MiniCam.SetActive(false);
 
         foodType[0] = GameObject.Find("Pizza_Mesh");
         foodType[1] = GameObject.Find("french frice");
@@ -294,7 +294,7 @@ public class Player : MonoBehaviour
                 KeyboardInput.counteridx = 3;
 
             mainCamera.SetActive(false);
-            miniCamera.SetActive(true);
+            GameManager.MiniCam.SetActive(true);
         }
 
         if (other.tag == "BurgerShop")

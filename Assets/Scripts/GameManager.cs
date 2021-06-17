@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         StartCam = GameObject.FindWithTag("StartCamera");
         GameCam = GameObject.FindWithTag("MainCamera");
         MiniCam = GameObject.FindWithTag("MiniCamera");
