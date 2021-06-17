@@ -103,7 +103,7 @@ public class Guest : MonoBehaviour
             MakeRandGoal();
 
             for (int i = 0; i < foodList.Count; i++)
-                Destroy(foodList[i]);
+                Destroy(foodList[i].gameObject);
         }
 
 
@@ -144,12 +144,11 @@ public class Guest : MonoBehaviour
             nma.enabled = false;
             //nma.SetDestination(collision.transform.position);
             thisTrans.SetParent(goalObject.GetComponent<Transform>());
-            thisTrans.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
+            thisTrans.localPosition = new Vector3(0.0f, 3.0f, 0.0f);
             this.transform.rotation = new Quaternion(0, 0, 0, 0);   
             thisTrans.localScale = new Vector3(14.28f, 16.6f, 16.6f);
 
             order();
-            MatchFood();
 
             watch.Start();
         }
@@ -157,8 +156,8 @@ public class Guest : MonoBehaviour
 
     void order()
     {
-        randFoodnum = UnityEngine.Random.Range(0, 2);
-
+        randFoodnum = UnityEngine.Random.Range(0, 1);
+        //UnityEngine.Debug.Log("randFoodnum" + randFoodnum);
         if (randFoodnum == 0)
         {
             randFood = UnityEngine.Random.Range(0, 3);
@@ -167,20 +166,20 @@ public class Guest : MonoBehaviour
             food.GetComponent<Transform>().SetParent(thisTrans);
             foodList.Add(food);
         }
-        else
+        else if (randFoodnum == 1)
         {
             randFood = UnityEngine.Random.Range(0, 4);
             food = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
+            food.GetComponent<Transform>().SetParent(thisTrans);
+            food.GetComponent<Transform>().localPosition = new Vector3(-3.0f, 1.5f, 0.0f);
+            foodList.Add(food);
+
             randFood = UnityEngine.Random.Range(0, 4);
             GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
-            food.GetComponent<Transform>().SetParent(thisTrans);
-            food.GetComponent<Transform>().localPosition = new Vector3(-5.0f, 1.5f, 0.0f);
-            foodList.Add(food);
-
             food2.GetComponent<Transform>().SetParent(thisTrans);
-            food2.GetComponent<Transform>().localPosition = new Vector3(5.0f, 1.0f, 0.0f);
+            food2.GetComponent<Transform>().localPosition = new Vector3(3.0f, 1.5f, 0.0f);
             foodList.Add(food2);
         }
     }
