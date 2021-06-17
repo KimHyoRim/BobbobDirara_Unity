@@ -31,12 +31,25 @@ public class Guest : MonoBehaviour
 
     private bool isFirst;
 
-    bool isSitting = false;
+    public bool isSitting = false;
 
     public int randFoodnum;
     public static int randFood;
     public GameObject[] foodType = new GameObject[4];
     public List<GameObject> foodList = new List<GameObject>();
+
+    public bool myMatch = false;
+    public static bool isMatch = false;
+
+    public bool matchGetter()
+    {
+        return myMatch;
+    }
+
+    public void myMatchSetter(bool m_match)
+    {
+        myMatch = m_match;
+    }
 
     void Awake()
     {

@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     public int foodnum = 0;
     public Queue<GameObject> myFoodList = new Queue<GameObject>();
-    public Queue<GameObject> myHandList = new Queue<GameObject>();
+    public Stack<GameObject> myHandList = new Stack<GameObject>();
     public List<GameObject> dropFoodList = new List<GameObject>();
     public GameObject food;
     public GameObject[] foodType = new GameObject[4];
@@ -56,8 +56,11 @@ public class Player : MonoBehaviour
     bool isMatch = false;
 
     public static int payment = 0;
-    
-    
+
+    public GameObject myGuest;
+
+
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -222,7 +225,7 @@ public class Player : MonoBehaviour
                 tr.SetParent(foodleftpoint.transform);
                 tr.localPosition = Vector3.zero;
                 tr.rotation = new Quaternion(0, 0, 0, 0);
-                myHandList.Enqueue(myFoodList.Dequeue());
+                myHandList.Push(myFoodList.Dequeue());
             }
             else if (myHandList.Count == 1)
             {
@@ -230,7 +233,7 @@ public class Player : MonoBehaviour
                 tr.SetParent(foodrightpoint.transform);
                 tr.localPosition = Vector3.zero;
                 tr.rotation = new Quaternion(0, 0, 0, 0);
-                myHandList.Enqueue(myFoodList.Dequeue());
+                myHandList.Push(myFoodList.Dequeue());
             }
 
             anim.SetBool("isPickup", true);
@@ -244,6 +247,15 @@ public class Player : MonoBehaviour
             if (SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].name == myHandList.Peek().name)
             {
                 isMatch = true;
+                Debug.Log("1" + SeatList[1, collidedNum].transform.GetChild(1).gameObject);
+                Debug.Log("2" + SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[2].name);
+                myGuest = GameObject.Find(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[2].name);
+                //Debug.Log(myGuest.isSitting);
+                
+                //Debug.Log(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.matchGetter());
+                //SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.myMatchSetter(true);
+                //Debug.Log(SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].transform.parent.gameObject.myMatchGetter());
+                ////Debug.Log("guest ismatch " + myGuest.myMatch);
                 break;
             }
             else
@@ -257,11 +269,11 @@ public class Player : MonoBehaviour
         {
             collidedTable = SeatList[0, collidedNum].GetComponentsInChildren<Transform>()[1].gameObject;
             MatchFood();
-            if (isMatch)
+            if (isMatch)//myGuest.myMatch)
             {
                 if (collidedTable.GetComponentsInChildren<Transform>().Length < 2)
                 {
-                    Transform tr = myHandList.Dequeue().GetComponent<Transform>();
+                    Transform tr = myHandList.Pop().GetComponent<Transform>();
                     tr.SetParent(collidedTable.transform);
                     tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
                     tr.rotation = new Quaternion(0, 0, 0, 0);
@@ -271,7 +283,7 @@ public class Player : MonoBehaviour
                     Transform ytr = collidedTable.gameObject.GetComponentsInChildren<Transform>()[1];
                     ytr.localPosition = new Vector3(0.0f, 17.5f, -4.0f);
 
-                    Transform tr = myHandList.Dequeue().GetComponent<Transform>();
+                    Transform tr = myHandList.Pop().GetComponent<Transform>();
 
                     tr.SetParent(collidedTable.transform);
                     tr.localPosition = new Vector3(0.0f, 17.5f, 4.0f);
