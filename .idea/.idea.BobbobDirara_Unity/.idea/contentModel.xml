@@ -102,6 +102,9 @@
             </e>
           </e>
         </e>
+        <e p="image" t="Include">
+          <e p="degreetime.cs" t="Include" />
+        </e>
         <e p="MiniGame" t="Include">
           <e p="MakeMiniBall.cs" t="Include" />
         </e>

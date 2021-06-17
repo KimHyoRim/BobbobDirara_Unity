@@ -20,9 +20,9 @@ public class ChangeLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        thelight.Rotate(Vector3.right * Time.deltaTime*10);
+        thelight.Rotate(Vector3.right * Time.deltaTime*1.5f);
          
        
-
+ 
     }
 }
