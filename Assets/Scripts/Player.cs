@@ -46,9 +46,14 @@ public class Player : MonoBehaviour
 
     public ParticleSystem Twinkle;
 
+    public GameObject Fever;
+    bool FeverCheck = true;
+    
+    
     void Awake()
     {
         anim = GetComponent<Animator>();
+        Fever = GameObject.FindWithTag("feverparticle");
     }
 
     void Start()
@@ -109,6 +114,8 @@ public class Player : MonoBehaviour
         PickupFood();
         DropFood();
         CleanTable();
+
+        TurnonoffFever();
     }
 
     void FixedUpdate()
@@ -136,8 +143,9 @@ public class Player : MonoBehaviour
             if (!isBorder)
             {
                 moveVec = Vector3.forward * speed * Time.deltaTime;
-
+                
                 this.transform.Translate(moveVec);
+               
             }
         }
         if (Input.GetKey(KeyCode.S))
@@ -148,6 +156,7 @@ public class Player : MonoBehaviour
                 moveVec = Vector3.back * speed * Time.deltaTime;
 
                 this.transform.Translate(moveVec);
+                
             }
         }
         if (Input.GetKey(KeyCode.A))
@@ -312,4 +321,23 @@ public class Player : MonoBehaviour
             }
         }
     }
+    
+    void TurnonoffFever()
+    {
+        // 피버 받는 조건 되면 트루키게
+        if (FeverCheck)
+        {
+            Fever.SetActive(true);
+        }
+        else
+        {
+            Fever.SetActive(false);
+        }
+
+
+
+    }
+    
 }
+
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\박성준\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\박성준\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_BobbobDirara_Unity.-494676987.00" t="ExcludeRecursive" />
+    <e p="C:\Users\박성준\Desktop\BobbobDirara_Unity" t="IncludeRecursive">
+      <e p="Andtech.StarPack.Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Andtech" t="Include">
+          <e p="Star Pack" t="Include">
+            <e p="Editor" t="Include">
+              <e p="Andtech.StarPack.Editor.asmdef" t="Include" />
+              <e p="Scripts" t="Include">
+                <e p="BaseShaderGUI.cs" t="Include" />
+                <e p="ParticleStandardGlowShaderGUI.cs" t="Include" />
+              </e>
+            </e>
+            <e p="package.json" t="Include" />
+            <e p="Runtime" t="Include">
+              <e p="Shaders" t="Include">
+                <e p="Particle Standard Glow.shader" t="Include" />
+              </e>
+            </e>
+            <e p="Samples" t="Include">
+              <e p="Star Pack Demo" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="ActivateDepthRendering.cs" t="Include" />
+                  <e p="Spin.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="CoffeeShopStarterPack" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="BewerageMaker.cs" t="Include" />
+            <e p="CookableProduct.cs" t="Include" />
+            <e p="CookingGameObject.cs" t="Include" />
+            <e p="CreateProductOnPlaceHolder.cs" t="Include" />
+            <e p="DeleteProductOnSlot.cs" t="Include" />
+            <e p="DrinkableProduct.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="BewerageMakerEditor.cs" t="Include" />
+              <e p="ProductEditor.cs" t="Include" />
+              <e p="ProductManagerEditor.cs" t="Include" />
+              <e p="ScreenShotHelperEditor.cs" t="Include" />
+              <e p="ScreenShotImportSettings.cs" t="Include" />
+              <e p="SliceHelperEditor.cs" t="Include" />
+            </e>
+            <e p="FillCupHelper.cs" t="Include" />
+            <e p="HeatableProduct.cs" t="Include" />
+            <e p="Microwave.cs" t="Include" />
+            <e p="OnClickCoverHelper.cs" t="Include" />
+            <e p="OrderGenerator.cs" t="Include" />
+            <e p="PanGameObject.cs" t="Include" />
+            <e p="PlayerSlots.cs" t="Include" />
+            <e p="Product.cs" t="Include" />
+            <e p="ProductGameObject.cs" t="Include" />
+            <e p="ProductManager.cs" t="Include" />
+            <e p="ProductType.cs" t="Include" />
+            <e p="ProductWithCover.cs" t="Include" />
+            <e p="ProgressHelper.cs" t="Include" />
+            <e p="ReadyToServe.cs" t="Include" />
+            <e p="ServeOrder.cs" t="Include" />
+            <e p="StoveGameObject.cs" t="Include" />
+            <e p="Utilities" t="Include">
+              <e p="BasicCameraControl.cs" t="Include" />
+              <e p="BasicGameEvents.cs" t="Include" />
+              <e p="ScreenShotHelper.cs" t="Include" />
+              <e p="SliceHelper.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="EffectExamples" t="Include">
+          <e p="Editor" t="Include">
+            <e p="PackageManagerAssembly" t="Include">
+              <e p="PackageImportList.txt" t="Include" />
+            </e>
+          </e>
+          <e p="Shared" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="DecalDestroyer.cs" t="Include" />
+              <e p="ExtinguishableFire.cs" t="Include" />
+              <e p="GunAim.cs" t="Include" />
+              <e p="GunShoot.cs" t="Include" />
+              <e p="ParticleCollision.cs" t="Include" />
+              <e p="ParticleExamples.cs" t="Include" />
+              <e p="ParticleMenu.cs" t="Include" />
+            </e>
+            <e p="Shaders" t="Include">
+              <e p="SurfaceShader_VC.shader" t="Include" />
+            </e>
+          </e>
+          <e p="TutorialInfo" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="Editor" t="Include">
+                <e p="ReadmeEditor.cs" t="Include" />
+              </e>
+              <e p="Readme.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="MiniGame" t="Include">
+          <e p="MakeMiniBall.cs" t="Include" />
+        </e>
+        <e p="POLYGON city pack" t="Include">
+          <e p="Read_me.txt" t="Include" />
+        </e>
+        <e p="Scenes" t="Include">
+          <e p="ChangeLight.cs" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="GoalScript.cs" t="Include" />
+          <e p="Guest.cs" t="Include" />
+          <e p="KeyboardInput.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="UI.cs" t="Include" />
+        </e>
+      </e>
+      <e p="BobbobDirara_Unity.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\Bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
