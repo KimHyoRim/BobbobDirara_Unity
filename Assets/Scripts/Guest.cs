@@ -145,10 +145,11 @@ public class Guest : MonoBehaviour
             //nma.SetDestination(collision.transform.position);
             thisTrans.SetParent(goalObject.GetComponent<Transform>());
             thisTrans.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
-            this.transform.rotation = new Quaternion(0, 0, 0, 0);
+            this.transform.rotation = new Quaternion(0, 0, 0, 0);   
             thisTrans.localScale = new Vector3(14.28f, 16.6f, 16.6f);
 
             order();
+            MatchFood();
 
             watch.Start();
         }
@@ -156,7 +157,7 @@ public class Guest : MonoBehaviour
 
     void order()
     {
-        randFoodnum = UnityEngine.Random.Range(0, 1);
+        randFoodnum = UnityEngine.Random.Range(0, 2);
 
         if (randFoodnum == 0)
         {
@@ -168,10 +169,10 @@ public class Guest : MonoBehaviour
         }
         else
         {
-            randFood = UnityEngine.Random.Range(0, 3);
+            randFood = UnityEngine.Random.Range(0, 4);
             food = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
-            randFood = UnityEngine.Random.Range(0, 3);
+            randFood = UnityEngine.Random.Range(0, 4);
             GameObject food2 = (GameObject)Instantiate(foodType[randFood], thisTrans.position, Quaternion.identity);
 
             food.GetComponent<Transform>().SetParent(thisTrans);
@@ -182,6 +183,10 @@ public class Guest : MonoBehaviour
             food2.GetComponent<Transform>().localPosition = new Vector3(5.0f, 1.0f, 0.0f);
             foodList.Add(food2);
         }
+    }
+
+    void MatchFood()
+    {
     }
 
     void MakeRandGoal()

@@ -29,8 +29,11 @@ public class Player : MonoBehaviour
     public GameObject foodleftpoint;
     public GameObject foodrightpoint;
 
-    public GameObject[] arrayChild = new GameObject[6];
+    public static GameObject[,] SeatList = new GameObject[2,6];
+
+    //public GameObject[] arrayChild = new GameObject[6];
     public GameObject collidedTable;
+    public int collidedNum = 6;
 
     public static GameObject mainCamera;
     public static GameObject miniCamera;
@@ -43,11 +46,16 @@ public class Player : MonoBehaviour
     public AudioSource CleanSound;
     public AudioSource PickupSound;
     public AudioSource DropSound;
+    public AudioSource DisMatch;
 
     public ParticleSystem Twinkle;
 
     public GameObject Fever;
     bool FeverCheck = true;
+
+    bool isMatch = false;
+
+    public static int payment = 0;
     
     
     void Awake()
@@ -80,8 +88,14 @@ public class Player : MonoBehaviour
         CleanSound = GameObject.Find("Clean").GetComponent<AudioSource>();
         PickupSound = GameObject.Find("Pickup").GetComponent<AudioSource>();
         DropSound = GameObject.Find("Drop").GetComponent<AudioSource>();
+        DisMatch = GameObject.Find("Nope").GetComponent<AudioSource>();
 
         Twinkle = GameObject.Find("Twinkle").GetComponent<ParticleSystem>();
+
+        for (int i = 0; i < 6; i++) {
+            SeatList[0, i] = GameObject.Find("table" + (i + 1).ToString());
+            SeatList[1, i] = GameObject.Find("chair" + (i + 1).ToString());
+        }
     }
 
     void makeFood()
@@ -223,39 +237,64 @@ public class Player : MonoBehaviour
         }
     }
 
-    void DropFood()
+    void MatchFood()
     {
-        if (Input.GetKeyDown(KeyCode.X) && collidedTable != null)
+        for (int i = 0; i < SeatList[1, collidedNum].GetComponentsInChildren<Transform>().Length; i++)
         {
-            if (collidedTable.gameObject.GetComponentsInChildren<Transform>().Length < 2)
+            if (SeatList[1, collidedNum].GetComponentsInChildren<Transform>()[i].name == myHandList.Peek().name)
             {
-                Transform tr = myHandList.Dequeue().GetComponent<Transform>();
-                tr.SetParent(collidedTable.transform);
-                tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
-                tr.rotation = new Quaternion(0, 0, 0, 0);
+                isMatch = true;
+                break;
             }
             else
+                isMatch = false;
+        }
+    }
+
+    void DropFood()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && collidedNum != 6)
+        {
+            collidedTable = SeatList[0, collidedNum].GetComponentsInChildren<Transform>()[1].gameObject;
+            MatchFood();
+            if (isMatch)
             {
-                Transform ytr = collidedTable.gameObject.GetComponentsInChildren<Transform>()[1];
-                ytr.localPosition = new Vector3(0.0f, 17.5f, -4.0f);
+                if (collidedTable.GetComponentsInChildren<Transform>().Length < 2)
+                {
+                    Transform tr = myHandList.Dequeue().GetComponent<Transform>();
+                    tr.SetParent(collidedTable.transform);
+                    tr.localPosition = new Vector3(0.0f, 17.5f, 0.0f);
+                    tr.rotation = new Quaternion(0, 0, 0, 0);
+                }
+                else
+                {
+                    Transform ytr = collidedTable.gameObject.GetComponentsInChildren<Transform>()[1];
+                    ytr.localPosition = new Vector3(0.0f, 17.5f, -4.0f);
 
-                Transform tr = myHandList.Dequeue().GetComponent<Transform>();
+                    Transform tr = myHandList.Dequeue().GetComponent<Transform>();
 
-                tr.SetParent(collidedTable.transform);
-                tr.localPosition = new Vector3(0.0f, 17.5f, 4.0f);
-                tr.rotation = new Quaternion(0, 0, 0, 0);
+                    tr.SetParent(collidedTable.transform);
+                    tr.localPosition = new Vector3(0.0f, 17.5f, 4.0f);
+                    tr.rotation = new Quaternion(0, 0, 0, 0);
+                }
+                if (myHandList.Count == 0)
+                    anim.SetBool("isPickup", false);
+                collidedTable = null;
+                collidedNum = 0;
+                DropSound.Play();
+                payment += 1000;
+                Debug.Log(payment);
             }
-            if (myHandList.Count == 0)
-                anim.SetBool("isPickup", false);
-            collidedTable = null;
-            DropSound.Play();
+            else
+                DisMatch.Play();
         }
     }
 
     void CleanTable()
     {
-        if (Input.GetKeyDown(KeyCode.C) && collidedTable != null)
+        if (Input.GetKeyDown(KeyCode.C) && collidedNum != 6)
         {
+            collidedTable = SeatList[0, collidedNum].GetComponentsInChildren<Transform>()[1].gameObject;
             if (collidedTable.gameObject.GetComponentsInChildren<Transform>().Length > 1)
             {
                 cnt += 1;
@@ -312,11 +351,12 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Table")
         {
-            for (int i = 0; i < arrayChild.Length; i++)
+            for (int i = 0; i < 6; i++)
             {
-                if (other.gameObject == arrayChild[i])
+                if (other.gameObject.transform.parent.gameObject.name == SeatList[0, i].name)
                 {
-                    collidedTable = arrayChild[i];
+                    collidedNum = i;
+                    // collidedTable = arrayChild[i];
                 }
             }
         }
