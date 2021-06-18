@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject Guest;
 
+    public Text Coin;
+
     public void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.Find("Player");
         Guest = GameObject.Find("Guest");
+
 
         StartCam.SetActive(true);
         GameCam.SetActive(false);
@@ -53,4 +56,9 @@ public class GameManager : MonoBehaviour
         Guest.gameObject.SetActive(true);
     }
 
+    public void Update()
+    {
+        int payment = player.GetComponent<Player>().payment;
+        Coin.text = string.Format("{0:n0}", payment);
+    }
 }

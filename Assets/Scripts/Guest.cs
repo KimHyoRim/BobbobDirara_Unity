@@ -78,7 +78,7 @@ public class Guest : MonoBehaviour
         foodType[2] = GameObject.Find("Sushi");
         foodType[3] = GameObject.Find("Chicken");
 
-        UnityEngine.Debug.Log(Player.payment);
+        //UnityEngine.Debug.Log(Player.payment);
     }
 
     void Update()

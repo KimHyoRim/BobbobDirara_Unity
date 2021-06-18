@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     bool isMatch = false;
 
-    public static int payment = 0;
+    public int payment = 0;
 
     public GameObject myGuest;
 
