@@ -44,8 +44,6 @@ public class GameManager : MonoBehaviour
 
         player.gameObject.SetActive(false);
         Guest.gameObject.SetActive(false);
-
-        Coin = GameObject.Find("CoinText").GetComponent<Text>();
     }
 
     public void GameStart()

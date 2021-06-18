@@ -66,6 +66,7 @@ public class Guest : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         watch = new Stopwatch();
         firstWaitWatch = new Stopwatch();
+        waitWatch = new Stopwatch();
 
         startPos = new Vector3(-323.25f, 69.89f, 68.11f);
         isCollision = false;
@@ -82,7 +83,7 @@ public class Guest : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
         if (isFirst == true)
         {
             for (int i = 0; i < 6; ++i)
@@ -150,6 +151,8 @@ public class Guest : MonoBehaviour
             this.transform.rotation = new Quaternion(0, 0, 0, 0);
             thisTrans.localScale = new Vector3(14.28f, 16.6f, 16.6f);
 
+            waitWatch.Start();
+
             //order();
         }
     }
@@ -160,7 +163,7 @@ public class Guest : MonoBehaviour
         bar.SetActive(true);
 
         this.GetComponentInChildren<degreehungry>().Add = true;
-        
+
         //UnityEngine.Debug.Log("2 Add " + this.GetComponentInChildren<degreehungry>().Add);
 
         if (foodList.Count < 1)
@@ -201,6 +204,35 @@ public class Guest : MonoBehaviour
                     Destroy(foodList[i].gameObject);
                     foodList.RemoveAt(i);
                 }
+            }
+        }
+        else
+        {
+            if (waitWatch.ElapsedMilliseconds > 21000)
+            {
+                anim.SetBool("Waiting", false);
+                anim.SetBool("isLeave", true);
+
+                thisTrans.parent = null;
+                thisTrans.transform.position = startPos;
+                goalObject.GetComponent<GoalScript>().SetisCollision(false);
+                isCollision = false;
+                isSitting = false;
+                myMatch = false;
+                nma.enabled = true;
+                MakeRandGoal();
+
+                for (int i = 0; i < foodList.Count; i++)
+                {
+                    Destroy(foodList[i].gameObject);
+                    foodList.RemoveAt(i);
+                }
+
+                waitWatch.Stop();
+                waitWatch.Reset();
+                bar.SetActive(false);
+                bar.GetComponent<degreehungry>().hungryBar.rectTransform.localScale = new Vector3(-0.2f, 0.1875f, 0.1875f);
+                bar.GetComponent<degreehungry>().temp = 0.0f;
             }
         }
     }
