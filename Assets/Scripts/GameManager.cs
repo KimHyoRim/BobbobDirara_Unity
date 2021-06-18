@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject StartPanel;
     public GameObject GamePanel;
-
+    public GameObject ResultPanel;
     public GameObject player;
     public GameObject Guest;
 
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         StartPanel = GameObject.Find("StartPanel");
         GamePanel = GameObject.Find("GamePanel");
-
+        ResultPanel= GameObject.Find("ResultPanel");
         player = GameObject.Find("Player");
         Guest = GameObject.Find("Guest");
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         StartPanel.SetActive(true);
         GamePanel.SetActive(false);
-
+        ResultPanel.SetActive(false);
         player.gameObject.SetActive(false);
         Guest.gameObject.SetActive(false);
     }

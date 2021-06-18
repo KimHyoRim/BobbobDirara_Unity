@@ -4,7 +4,8 @@
     <list default="true" id="60a8af71-6706-4651-958f-a5a1c68abab6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BobbobDirara_Unity/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BobbobDirara_Unity/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BobbobDirara_Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BobbobDirara_Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ChangeLight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ChangeLight.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainStageScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainStageScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +24,8 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Player.cs" />
       <option value="$PROJECT_DIR$/Assets/image/degreetime.cs" />
       <option value="$PROJECT_DIR$/Assets/Scenes/ChangeLight.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Menu/Result.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1u3ySBq13Cj3gM7CsmJ1i4ynwIJ" />
@@ -72,6 +75,7 @@
       <workItem from="1623916487669" duration="1143000" />
       <workItem from="1623973302708" duration="96000" />
       <workItem from="1623973426190" duration="536000" />
+      <workItem from="1623999182783" duration="3533000" />
     </task>
     <servers />
   </component>

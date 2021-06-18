@@ -154,6 +154,9 @@
           <e p="GoalScript.cs" t="Include" />
           <e p="Guest.cs" t="Include" />
           <e p="KeyboardInput.cs" t="Include" />
+          <e p="Menu" t="Include">
+            <e p="Result.cs" t="Include" />
+          </e>
           <e p="Player.cs" t="Include" />
           <e p="UI.cs" t="Include" />
         </e>
