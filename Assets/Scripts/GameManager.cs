@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public Text Coin;
 
+    public int payment;
+
     public void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
 
         player.gameObject.SetActive(false);
         Guest.gameObject.SetActive(false);
+
+        Coin = GameObject.Find("CoinText").GetComponent<Text>();
     }
 
     public void GameStart()
@@ -58,7 +62,8 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        int payment = player.GetComponent<Player>().payment;
+        payment = player.GetComponent<Player>().payment;
+        //Debug.Log(payment);
         Coin.text = string.Format("{0:n0}", payment);
     }
 }
