@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject Guest;
 
+    
     public Text Coin;
-
+    public Text Score;
     public int payment;
 
     public void Start()
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
         ResultPanel= GameObject.Find("ResultPanel");
         player = GameObject.Find("Player");
         Guest = GameObject.Find("Guest");
-
+        
+       
 
         StartCam.SetActive(true);
         GameCam.SetActive(false);
@@ -58,10 +60,22 @@ public class GameManager : MonoBehaviour
         Guest.gameObject.SetActive(true);
     }
 
+    public void GameQuit()
+    {
+        Debug.Log("종료클릭됨");
+        Application.Quit();
+        
+        
+    }
+    
+
     public void Update()
     {
         payment = player.GetComponent<Player>().payment;
         //Debug.Log(payment);
         Coin.text = string.Format("{0:n0}", payment);
+        Score.text = string.Format("{0:n0}", payment);
+       
+            
     }
 }
